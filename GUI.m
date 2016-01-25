@@ -155,10 +155,4 @@ end
 global_struct.fs = outputSampleRate;
 global_struct.x = x;
 global_struct.firType = get(handles.type, 'Value');
-
-
-
-% --- Executes on button press in plotter.
-function plotter_Callback(hObject, eventdata, handles)
 plots
-    

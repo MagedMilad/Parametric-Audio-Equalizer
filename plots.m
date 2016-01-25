@@ -15,16 +15,9 @@ else
     gui_mainfcn(gui_State, varargin{:});
 end
 
-function plots_OpeningFcn(hObject, eventdata, handles, varargin)
+function plots_OpeningFcn(hObject, ~, handles, varargin)
 handles.output = hObject;
 guidata(hObject, handles);
-
-function varargout = plots_OutputFcn(hObject, eventdata, handles) 
-varargout{1} = handles.output;
-
-
-% --- Executes when selected object is changed in outType.
-function outType_SelectionChangeFcn(hObject, eventdata, handles)
 global global_struct;
 
 slid1 = global_struct.slid1;
@@ -247,7 +240,12 @@ total_y=fftshift(total_y);
 total_y_abs=abs(total_y);
 total_y_ang=angle(total_y);
 
+function varargout = plots_OutputFcn(hObject, eventdata, handles) 
+varargout{1} = handles.output;
 
+
+% --- Executes when selected object is changed in outType.
+function outType_SelectionChangeFcn(hObject, eventdata, handles)
 %var total_x
 %x-axis  ==> time
 %y-axis  ==> x(amplitude)
@@ -255,24 +253,23 @@ total_y_ang=angle(total_y);
 %var total_y_abs/total_y_ang
 %x-axis  ==> frequ
 %y-axis  ==> x(magnitude/angle)
-t = (1/outputSampleRate)*(1:length(x));
-axes(handles.in_time);
-plot(t,x);
-title('Input in time doman');
-xlabel('time(s)');
-ylabel('amplitude');
 
+%t = (1/outputSampleRate)*(1:length(x));
+%axes(handles.in_time);
+%plot(t,x);
+%title('Input in time doman');
+%xlabel('time(s)');
+%ylabel('amplitude');
 
-
-if eventdata.NewValue == band1
-elseif eventdata.NewValue == band2   
-elseif eventdata.NewValue == band3
-elseif eventdata.NewValue == band4
-elseif eventdata.NewValue == band5
-elseif eventdata.NewValue == band6
-elseif eventdata.NewValue == band7
-elseif eventdata.NewValue == band8
-elseif eventdata.NewValue == band9
+if eventdata.NewValue == handles.band1
+elseif eventdata.NewValue == handles.band2   
+elseif eventdata.NewValue == handles.band3
+elseif eventdata.NewValue == handles.band4
+elseif eventdata.NewValue == handles.band5
+elseif eventdata.NewValue == handles.band6
+elseif eventdata.NewValue == handles.band7
+elseif eventdata.NewValue == handles.band8
+elseif eventdata.NewValue == handles.band9
 else
     
 end
