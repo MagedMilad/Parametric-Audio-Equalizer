@@ -40,6 +40,7 @@ y=fftshift(y);
 y_abs=abs(y);
 y_ang=angle(y);
 order=10;
+global x1 x2 x3 x4 x5 x6 x7 x8 x9 total_x outputSampleRate;
 
 
 if fir == 1
@@ -187,42 +188,7 @@ else
     f=iir_bp_butterworth(outputSampleRate,order,14000,16000);
     x9=filter(f,x);
 end
-y1=fft(x1);
-y2=fft(x2);
-y3=fft(x3);
-y4=fft(x4);
-y5=fft(x5);
-y6=fft(x6);
-y7=fft(x7);
-y8=fft(x8);
-y9=fft(x9);
-y1=fftshift(y1);
-y2=fftshift(y2);
-y3=fftshift(y3);
-y4=fftshift(y4);
-y5=fftshift(y5);
-y6=fftshift(y6);
-y7=fftshift(y7);
-y8=fftshift(y8);
-y9=fftshift(y9);
-y1_abs=abs(y1);
-y1_ang=angle(y1);
-y2_abs=abs(y2);
-y2_ang=angle(y2);
-y3_abs=abs(y3);
-y3_ang=angle(y3);
-y4_abs=abs(y4);
-y4_ang=angle(y4);
-y5_abs=abs(y5);
-y5_ang=angle(y5);
-y6_abs=abs(y6);
-y6_ang=angle(y6);
-y7_abs=abs(y7);
-y7_ang=angle(y7);
-y8_abs=abs(y8);
-y8_ang=angle(y8);
-y9_abs=abs(y9);
-y9_ang=angle(y9);
+
 x1s=x1*10^(slid1/20);
 x2s=x2*10^(slid2/20);
 x3s=x3*10^(slid3/20);
@@ -240,36 +206,98 @@ total_y=fftshift(total_y);
 total_y_abs=abs(total_y);
 total_y_ang=angle(total_y);
 
+t = (1/outputSampleRate)*(1:length(x));
+axes(handles.in_time);
+plot(t,x);
+title('Input in time doman');
+xlabel('time');
+ylabel('amplitude');
+
+freq=linspace(-outputSampleRate/2,outputSampleRate/2,length(total_x));
+axes(handles.in_freq_mag);
+plot(freq,abs(fftshift(fft(x))));
+title('Input in frequence doman (Magnitude Response)');
+xlabel('frequence');
+ylabel('magnitude');
+
+axes(handles.in_freq_phase);
+plot(freq,angle(fftshift(fft(x))));
+title('Input in frequence doman (Phase Response)');
+xlabel('frequence');
+ylabel('phase');
+
+axes(handles.out_time);
+plot(t,total_x);
+title('output in time doman');
+xlabel('time');
+ylabel('amplitude');
+
+freq=linspace(-outputSampleRate/2,outputSampleRate/2,length(total_x));
+axes(handles.out_freq_mag);
+plot(freq,total_y_abs);
+title('output in frequence doman (Magnitude Response)');
+xlabel('frequence');
+ylabel('magnitude');
+
+axes(handles.out_freq_phase);
+plot(freq,total_y_ang);
+title('output in frequence doman (Phase Response)');
+xlabel('frequence');
+ylabel('phase');
+
+
+
 function varargout = plots_OutputFcn(hObject, eventdata, handles) 
 varargout{1} = handles.output;
 
 
 % --- Executes when selected object is changed in outType.
 function outType_SelectionChangeFcn(hObject, eventdata, handles)
-%var total_x
-%x-axis  ==> time
-%y-axis  ==> x(amplitude)
 
-%var total_y_abs/total_y_ang
-%x-axis  ==> frequ
-%y-axis  ==> x(magnitude/angle)
+global var;
+global x1 x2 x3 x4 x5 x6 x7 x8 x9 total_x outputSampleRate;
 
-%t = (1/outputSampleRate)*(1:length(x));
-%axes(handles.in_time);
-%plot(t,x);
-%title('Input in time doman');
-%xlabel('time(s)');
-%ylabel('amplitude');
 
 if eventdata.NewValue == handles.band1
+    var=x1;
 elseif eventdata.NewValue == handles.band2   
+     var=x2;
 elseif eventdata.NewValue == handles.band3
+     var=x3;
 elseif eventdata.NewValue == handles.band4
+     var=x4;
 elseif eventdata.NewValue == handles.band5
+     var=x5;
 elseif eventdata.NewValue == handles.band6
+     var=x6;
 elseif eventdata.NewValue == handles.band7
+     var=x7;
 elseif eventdata.NewValue == handles.band8
+     var=x8;
 elseif eventdata.NewValue == handles.band9
+     var=x9;
 else
-    
+     var=total_x;
 end
+
+
+t = (1/outputSampleRate)*(1:length(total_x));
+axes(handles.out_time);
+plot(t,var);
+title('Output in time doman');
+xlabel('time');
+ylabel('amplitude');
+
+freq=linspace(-outputSampleRate/2,outputSampleRate/2,length(total_x));
+axes(handles.out_freq_mag);
+plot(freq,abs(fftshift(fft(var))));
+title('Output in frequence doman (Magnitude Response)');
+xlabel('frequence');
+ylabel('magnitude');
+
+axes(handles.out_freq_phase);
+plot(freq,angle(fftshift(fft(var))));
+title('Output in frequence doman (Phase Response)');
+xlabel('frequence');
+ylabel('phase');
+
