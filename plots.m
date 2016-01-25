@@ -30,6 +30,7 @@ slid7 = global_struct.slid7;
 slid8 = global_struct.slid8;
 slid9 = global_struct.slid9;
 
+global x1 x2 x3 x4 x5 x6 x7 x8 x9 total_x outputSampleRate;
 
 outputSampleRate = global_struct.fs;
 firType = global_struct.firType;
@@ -40,7 +41,6 @@ y=fftshift(y);
 y_abs=abs(y);
 y_ang=angle(y);
 order=10;
-global x1 x2 x3 x4 x5 x6 x7 x8 x9 total_x outputSampleRate;
 
 
 if fir == 1
@@ -200,11 +200,15 @@ x8s=x8*10^(slid8/20);
 x9s=x9*10^(slid9/20);
 %amplitude
 
+
 total_x = x1s+x2s+x3s+x4s+x5s+x6s+x7s+x8s+x9s;
+global_struct.output = total_x;
 total_y=fft(total_x);
 total_y=fftshift(total_y);
 total_y_abs=abs(total_y);
 total_y_ang=angle(total_y);
+
+playControls;
 
 t = (1/outputSampleRate)*(1:length(x));
 axes(handles.in_time);
@@ -300,4 +304,3 @@ plot(freq,angle(fftshift(fft(var))));
 title('Output in frequence doman (Phase Response)');
 xlabel('frequence');
 ylabel('phase');
-

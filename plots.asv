@@ -30,7 +30,7 @@ slid7 = global_struct.slid7;
 slid8 = global_struct.slid8;
 slid9 = global_struct.slid9;
 
-
+global x1 x2 x3 x4 x5 x6 x7 x8 x9 total_x outputSampleRate;
 outputSampleRate = global_struct.fs;
 firType = global_struct.firType;
 x = global_struct.x;
@@ -40,7 +40,6 @@ y=fftshift(y);
 y_abs=abs(y);
 y_ang=angle(y);
 order=10;
-global x1 x2 x3 x4 x5 x6 x7 x8 x9 total_x;
 
 
 if fir == 1
@@ -255,7 +254,7 @@ varargout{1} = handles.output;
 function outType_SelectionChangeFcn(hObject, eventdata, handles)
 
 global var;
-global x1 x2 x3 x4 x5 x6 x7 x8 x9;
+global x1 x2 x3 x4 x5 x6 x7 x8 x9 total_x outputSampleRate;
 
 
 if eventdata.NewValue == handles.band1
@@ -281,7 +280,7 @@ else
 end
 
 
-t = (1/outputSampleRate)*(1:length(x));
+t = (1/outputSampleRate)*(1:length(total_x));
 axes(handles.out_time);
 plot(t,var);
 title('Output in time doman');
@@ -300,4 +299,3 @@ plot(freq,angle(fftshift(fft(var))));
 title('Output in frequence doman (Phase Response)');
 xlabel('frequence');
 ylabel('phase');
-

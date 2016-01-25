@@ -88,7 +88,7 @@ end
 
 %our code starts here <===============================
 function open_Callback(hObject, ~, handles)
-[FileName,PathName,~] = uigetfile();
+[FileName,PathName,~] = uigetfile('input.wav');
 %handles.path = strcat(PathName,FileName);
 %guidata(hObject, handles);
 global global_struct;
