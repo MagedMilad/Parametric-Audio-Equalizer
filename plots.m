@@ -254,11 +254,7 @@ total_y_ang=angle(total_y);
 %var total_y_abs/total_y_ang
 %x-axis  ==> frequ
 %y-axis  ==> x(magnitude/angle)
-x = 1:1:10;
-y = sin(x);
-ax = axes(handles.axes1);  %corrected from my original version
-plot(ax,x,y);
-grid(ax, 'on');
+
 
 if eventdata.NewValue == band1
 elseif eventdata.NewValue == band2   
