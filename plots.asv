@@ -1,9 +1,9 @@
-function varargout = GUI(varargin)
+function varargout = plots(varargin)
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @GUI_OpeningFcn, ...
-                   'gui_OutputFcn',  @GUI_OutputFcn, ...
+                   'gui_OpeningFcn', @plots_OpeningFcn, ...
+                   'gui_OutputFcn',  @plots_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -14,141 +14,40 @@ if nargout
 else
     gui_mainfcn(gui_State, varargin{:});
 end
-global qq;
-qq=7;
 
-function GUI_OpeningFcn(hObject, ~, handles, varargin)
+function plots_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.output = hObject;
-handles.fir=0;
-handles.path='';
 guidata(hObject, handles);
 
-function varargout = GUI_OutputFcn(~, ~, handles) 
+function varargout = plots_OutputFcn(hObject, eventdata, handles) 
 varargout{1} = handles.output;
 
-function type_CreateFcn(hObject, ~, ~)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
-function slider55_CreateFcn(hObject, ~, ~)
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
+% --- Executes when selected object is changed in outType.
+function outType_SelectionChangeFcn(hObject, eventdata, handles)
 
-function slider66_CreateFcn(hObject, ~, ~)
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-
-function slider77_CreateFcn(hObject, ~, ~)
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-
-function slider88_CreateFcn(hObject, ~, ~)
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-
-function slider11_CreateFcn(hObject, ~, ~)
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-
-function slider22_CreateFcn(hObject, ~, ~)
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-
-function slider33_CreateFcn(hObject, ~, ~)
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-
-function slider44_CreateFcn(hObject, ~, ~)
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-
-function slider99_CreateFcn(hObject, ~, ~)
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-
-function otherValue_Callback(hObject, eventdata, handles)
-
-
-function otherValue_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-%our code starts here <===============================
-function open_Callback(hObject, ~, handles)
-[FileName,PathName,~] = uigetfile();
-handles.path = strcat(PathName,FileName);
-guidata(hObject, handles);
 global global_struct;
-global_struct.path= strcat(PathName,FileName);
 
-function save_Callback(~, ~, handles)
-
-% --- Executes when selected object is changed in uipanel2.
-function uipanel2_SelectionChangeFcn(hObject, eventdata, handles)
-% hObject    handle to the selected object in uipanel2 
-% eventdata  structure with the following fields (see UIBUTTONGROUP)
-%   EventName: string 'SelectionChanged' (read only)
-%   OldValue: handle of the previously selected object or empty if none was selected
-%   NewValue: handle of the currently selected object
-% handles    structure with handles and user data (see GUIDATA)
-if handles.FIR == eventdata.NewValue
-    set(handles.type,'Visible','on');
-    handles.fir=1;
-    guidata(hObject, handles);
-else
-    set(handles.type,'Visible','off');
-    handles.fir=0;
-    guidata(hObject, handles);
-end
+slid1 = global_struct.slid1;
+slid2 = global_struct.slid2;
+slid3 = global_struct.slid3;
+slid4 = global_struct.slid4;
+slid5 = global_struct.slid5;
+slid6 = global_struct.slid6;
+slid7 = global_struct.slid7;
+slid8 = global_struct.slid8;
+slid9 = global_struct.slid9;
 
 
-% --- Executes on button press in pushbutton3.
-function pushbutton3_Callback(~, ~, handles)
-% hObject    handle to pushbutton3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+outputSampleRate = global_struct.fs;
+firType = global_struct.firType;
+x = global_struct.x;
 
-filePath = handles.path;
-[x,fs] = wavread(filePath);
-outputSampleRate=0;
-if get(handles.same, 'Value') == 1
-    outputSampleRate=FS;
-elseif get(handles.half, 'Value') == 1
-    outputSampleRate=FS/2;
-elseif get(handles.double, 'Value') == 1
-    outputSampleRate=FS*2;
-else
-    outputSampleRate=get(handles.otherValue, 'Value');
-end
 y=fft(x);
 y=fftshift(y);
 y_abs=abs(y);
 y_ang=angle(y);
 
-slid1 = get(handles.slider11, 'Value');
-slid2 = get(handles.slider22, 'Value');
-slid3 = get(handles.slider33, 'Value');
-slid4 = get(handles.slider44, 'Value');
-slid5 = get(handles.slider55, 'Value');
-slid6 = get(handles.slider66, 'Value');
-slid7 = get(handles.slider77, 'Value');
-slid8 = get(handles.slider88, 'Value');
-slid9 = get(handles.slider99, 'Value');
-
-firType=get(handles.type, 'Value');
 
 if handles.fir == 1
     %fir filter
@@ -357,7 +256,20 @@ total_y_ang=angle(total_y);
 %x-axis  ==> frequ
 %y-axis  ==> x(magnitude/angle)
 
-% --- Executes on button press in plotter.
-function plotter_Callback(hObject, eventdata, handles)
-plots
+ax = axes('Parent',f);  %corrected from my original version
+  plot3 (ax, [a1 a2 a3],[b1 b2 b3],[c1 c2 c3], 'Marker','o','LineStyle','-');
+  grid(ax, 'on')
+  rotate3d(ax, 'on')
+
+if eventdata.NewValue == band1
+elseif eventdata.NewValue == band2   
+elseif eventdata.NewValue == band3
+elseif eventdata.NewValue == band4
+elseif eventdata.NewValue == band5
+elseif eventdata.NewValue == band6
+elseif eventdata.NewValue == band7
+elseif eventdata.NewValue == band8
+elseif eventdata.NewValue == band9
+else
     
+end
