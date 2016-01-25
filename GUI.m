@@ -296,18 +296,39 @@ y8_abs=abs(y8);
 y8_ang=angle(y8);
 y9_abs=abs(y9);
 y9_ang=angle(y9);
-x1s=x1*slid1;
-x2s=x1*slid2;
-x3s=x1*slid3;
-x4s=x1*slid4;
-x5s=x1*slid5;
-x6s=x1*slid6;
-x7s=x1*slid7;
-x8s=x1*slid8;
-x9s=x1*slid9;
+x1s=x1*10^(slid1/20);
+x2s=x2*10^(slid2/20);
+x3s=x3*10^(slid3/20);
+x4s=x4*10^(slid4/20);
+x5s=x5*10^(slid5/20);
+x6s=x6*10^(slid6/20);
+x7s=x7*10^(slid7/20);
+x8s=x8*10^(slid8/20);
+x9s=x9*10^(slid9/20);
+%amplitude
 total_x = x1s+x2s+x3s+x4s+x5s+x6s+x7s+x8s+x9s;
 total_y=fft(total_x);
 total_y=fftshift(total_y);
 total_y_abs=abs(total_y);
 total_y_ang=angle(total_y);
-end
+
+
+%var total_x
+%x-axis  ==> time
+%y-axis  ==> x(amplitude)
+
+%var total_y_abs/total_y_ang
+%x-axis  ==> frequ
+%y-axis  ==> x(magnitude/angle)
+
+
+
+
+
+
+
+
+
+
+
+
