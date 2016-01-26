@@ -133,11 +133,15 @@ else
     outputSampleRate=str2num(get(handles.otherValue, 'String'));
 end
 
+if fs <= 32000
+    errordlg('error in sample rate','Error');
+else
 global_struct.outputSampleRate = outputSampleRate;
 global_struct.fs = fs;
 global_struct.x = x;
 global_struct.firType = get(handles.type, 'Value');
 plots
+end
 
 
 % --- Executes on button press in allMax.
