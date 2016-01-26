@@ -150,9 +150,14 @@ elseif get(handles.half, 'Value') == 1
 elseif get(handles.double, 'Value') == 1
     outputSampleRate=fs*2;
 else
-    outputSampleRate=get(handles.otherValue, 'Value');
+    outputSampleRate=str2num(get(handles.otherValue, 'String'));
 end
+
+if outputSampleRate <= 32000
+    errordlg('error in sample rate','Error');
+else
 global_struct.fs = outputSampleRate;
 global_struct.x = x;
 global_struct.firType = get(handles.type, 'Value');
 plots
+end
