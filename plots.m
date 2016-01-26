@@ -20,6 +20,7 @@ handles.output = hObject;
 guidata(hObject, handles);
 global global_struct;
 
+% the values of the gain
 slid1 = global_struct.slid1;
 slid2 = global_struct.slid2;
 slid3 = global_struct.slid3;
@@ -32,15 +33,12 @@ slid9 = global_struct.slid9;
 
 global x1 x2 x3 x4 x5 x6 x7 x8 x9 total_x outputSampleRate;
 
-outputSampleRate = global_struct.outputSampleRate;
-firType = global_struct.firType;
-x = global_struct.x;
-fir = global_struct.fir;
-fs=global_struct.fs;
-y=fft(x);
-y=fftshift(y);
-y_abs=abs(y);
-y_ang=angle(y);
+outputSampleRate = global_struct.outputSampleRate;  % output sample rate
+firType = global_struct.firType;   %filter type
+x = global_struct.x;           %input wav
+fir = global_struct.fir;       %if the filter is fir 
+fs=global_struct.fs;           %the sample rate of the wav
+
 order=10;
 
 
@@ -190,6 +188,7 @@ else
     x9=filter(f,x);
 end
 
+%multiply the gain with each band
 x1s=x1*10^(slid1/20);
 x2s=x2*10^(slid2/20);
 x3s=x3*10^(slid3/20);
@@ -199,8 +198,8 @@ x6s=x6*10^(slid6/20);
 x7s=x7*10^(slid7/20);
 x8s=x8*10^(slid8/20);
 x9s=x9*10^(slid9/20);
-%amplitude
 
+%the total output signal in time domain
 total_x = x1s+x2s+x3s+x4s+x5s+x6s+x7s+x8s+x9s;
 
 global_struct.output = total_x;
@@ -211,47 +210,47 @@ total_y_ang=angle(total_y);
 
 playControls;
 
-t = (1/fs)*(1:length(x));
+t = (1/fs)*(1:length(x));    % time of the wav
 axes(handles.in_time);
-plot(t,x);
-title('Input in time doman');
-xlabel('time');
-ylabel('amplitude');
+plot(t,x);                   % plot the input signal of time domain
+title('Input in time domain');
+xlabel('Time(S)');
+ylabel('Amplitude(db)');
 
-freq=linspace(-fs/2,fs/2,length(x));
+freq=linspace(-fs/2,fs/2,length(x));   % frequencies of the wav
 axes(handles.in_freq_mag);
-plot(freq,abs(fftshift(fft(x))));
-title('Input in frequence doman (Magnitude Response)');
-xlabel('frequence');
-ylabel('magnitude');
+plot(freq,abs(fftshift(fft(x))));      % the magnitude of the input signal
+title('Input in frequency domain (Magnitude Response)');
+xlabel('Frequence(Hz)');
+ylabel('Magnitude(db)');
 
 axes(handles.in_freq_phase);
-plot(freq,angle(fftshift(fft(x))));
-title('Input in frequence doman (Phase Response)');
-xlabel('frequence');
-ylabel('phase');
+plot(freq,angle(fftshift(fft(x))));     % the phase of the input signal
+title('Input in frequency domain (Phase Response)');
+xlabel('Frequency(Hz)');
+ylabel('Phase(Rad)');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
-t = (1/outputSampleRate)*(1:length(total_x));
+t = (1/outputSampleRate)*(1:length(total_x));    % time of the wav
 axes(handles.out_time);
-plot(t,total_x);
-title('output in time doman');
-xlabel('time');
-ylabel('amplitude');
+plot(t,total_x);   % plot the output signal of time domain
+title('output in time domain');
+xlabel('Time(S)');
+ylabel('Amplitude(db)');
 
-freq=linspace(-outputSampleRate/2,outputSampleRate/2,length(total_x));
+freq=linspace(-outputSampleRate/2,outputSampleRate/2,length(total_x));    % frequencies of the wav
 axes(handles.out_freq_mag);
-plot(freq,total_y_abs);
-title('output in frequence doman (Magnitude Response)');
-xlabel('frequence');
-ylabel('magnitude');
+plot(freq,total_y_abs);    % the magnitude of the output signal
+title('output in frequence domain (Magnitude Response)');
+xlabel('Frequence(Hz)');
+ylabel('Magnitude(db)');
 
 axes(handles.out_freq_phase);
-plot(freq,total_y_ang);
-title('output in frequence doman (Phase Response)');
-xlabel('frequence');
-ylabel('phase');
+plot(freq,total_y_ang);      % the phase of the output signal
+title('output in frequence domain (Phase Response)');
+xlabel('Frequence(Hz)');
+ylabel('Phase(Rad)');
 
 
 
@@ -265,7 +264,7 @@ function outType_SelectionChangeFcn(hObject, eventdata, handles)
 global var;
 global x1 x2 x3 x4 x5 x6 x7 x8 x9 total_x outputSampleRate;
 
-
+%get the specific band
 if eventdata.NewValue == handles.band1
     var=x1;
 elseif eventdata.NewValue == handles.band2   
@@ -288,23 +287,23 @@ else
      var=total_x;
 end
 
-
+% plot the specific band in time and frequency domain
 t = (1/outputSampleRate)*(1:length(var));
 axes(handles.out_time);
 plot(t,var);
-title('Output in time doman');
-xlabel('time');
-ylabel('amplitude');
+title('Output in time domain');
+xlabel('Time(S)');
+ylabel('Amplitude(db)');
 
 freq=linspace(-outputSampleRate/2,outputSampleRate/2,length(var));
 axes(handles.out_freq_mag);
 plot(freq,abs(fftshift(fft(var))));
-title('Output in frequence doman (Magnitude Response)');
-xlabel('frequence');
-ylabel('magnitude');
+title('Output in frequency domain (Magnitude Response)');
+xlabel('Frequence(Hz)');
+ylabel('Magnitude(db)');
 
 axes(handles.out_freq_phase);
 plot(freq,angle(fftshift(fft(var))));
-title('Output in frequence doman (Phase Response)');
-xlabel('frequence');
-ylabel('phase');
+title('Output in frequency domain (Phase Response)');
+xlabel('Frequence(Hz)');
+ylabel('Phase(Rad)');
