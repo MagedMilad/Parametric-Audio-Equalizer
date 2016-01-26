@@ -32,10 +32,11 @@ slid9 = global_struct.slid9;
 
 global x1 x2 x3 x4 x5 x6 x7 x8 x9 total_x outputSampleRate;
 
-outputSampleRate = global_struct.fs;
+outputSampleRate = global_struct.outputSampleRate;
 firType = global_struct.firType;
 x = global_struct.x;
 fir = global_struct.fir;
+fs=global_struct.fs;
 y=fft(x);
 y=fftshift(y);
 y_abs=abs(y);
@@ -47,145 +48,145 @@ if fir == 1
     %fir filter
     if firType == 1
         %equiripple
-        f=fir_lp_equiripple(outputSampleRate,order,170,180);
+        f=fir_lp_equiripple(fs,order,170,180);
         x1=filter(f,x);
-        f=fir_bp_equiripple(outputSampleRate,order,160,170,310,320);
+        f=fir_bp_equiripple(fs,order,160,170,310,320);
         x2=filter(f,x);
-        f=fir_bp_equiripple(outputSampleRate,order,300,310,600,610);
+        f=fir_bp_equiripple(fs,order,300,310,600,610);
         x3=filter(f,x);
-        f=fir_bp_equiripple(outputSampleRate,order,590,600,1000,1010);
+        f=fir_bp_equiripple(fs,order,590,600,1000,1010);
         x4=filter(f,x);
-        f=fir_bp_equiripple(outputSampleRate,order,990,1000,3000,3010);
+        f=fir_bp_equiripple(fs,order,990,1000,3000,3010);
         x5=filter(f,x);
-        f=fir_bp_equiripple(outputSampleRate,order,2990,3000,6000,6010);
+        f=fir_bp_equiripple(fs,order,2990,3000,6000,6010);
         x6=filter(f,x);
-        f=fir_bp_equiripple(outputSampleRate,order,5990,6000,12000,12010);
+        f=fir_bp_equiripple(fs,order,5990,6000,12000,12010);
         x7=filter(f,x);
-        f=fir_bp_equiripple(outputSampleRate,order,11990,12000,14000,14010);
+        f=fir_bp_equiripple(fs,order,11990,12000,14000,14010);
         x8=filter(f,x);
-        f=fir_bp_equiripple(outputSampleRate,order,13990,14000,16000,16010);
+        f=fir_bp_equiripple(fs,order,13990,14000,16000,16010);
         x9=filter(f,x);
        
     elseif firType == 2
         %least-square
-        f=fir_lp_least_squares(outputSampleRate,order,170,180);
+        f=fir_lp_least_squares(fs,order,170,180);
         x1=filter(f,x);
-        f=fir_bp_least_squares(outputSampleRate,order,160,170,310,320);
+        f=fir_bp_least_squares(fs,order,160,170,310,320);
         x2=filter(f,x);
-        f=fir_bp_least_squares(outputSampleRate,order,300,310,600,610);
+        f=fir_bp_least_squares(fs,order,300,310,600,610);
         x3=filter(f,x);
-        f=fir_bp_least_squares(outputSampleRate,order,590,600,1000,1010);
+        f=fir_bp_least_squares(fs,order,590,600,1000,1010);
         x4=filter(f,x);
-        f=fir_bp_least_squares(outputSampleRate,order,990,1000,3000,3010);
+        f=fir_bp_least_squares(fs,order,990,1000,3000,3010);
         x5=filter(f,x);
-        f=fir_bp_least_squares(outputSampleRate,order,2990,3000,6000,6010);
+        f=fir_bp_least_squares(fs,order,2990,3000,6000,6010);
         x6=filter(f,x);
-        f=fir_bp_least_squares(outputSampleRate,order,5990,6000,12000,12010);
+        f=fir_bp_least_squares(fs,order,5990,6000,12000,12010);
         x7=filter(f,x);
-        f=fir_bp_least_squares(outputSampleRate,order,11990,12000,14000,14010);
+        f=fir_bp_least_squares(fs,order,11990,12000,14000,14010);
         x8=filter(f,x);
-        f=fir_bp_least_squares(outputSampleRate,order,13990,14000,16000,16010);
+        f=fir_bp_least_squares(fs,order,13990,14000,16000,16010);
         x9=filter(f,x);
     elseif firType == 3
         %rectangular
-         f=fir_lp_window_rectangular(outputSampleRate,order,170);
+         f=fir_lp_window_rectangular(fs,order,170);
         x1=filter(f,x);
-        f=fir_bp_window_rectangular(outputSampleRate,order,170,310);
+        f=fir_bp_window_rectangular(fs,order,170,310);
         x2=filter(f,x);
-        f=fir_bp_window_rectangular(outputSampleRate,order,310,600);
+        f=fir_bp_window_rectangular(fs,order,310,600);
         x3=filter(f,x);
-        f=fir_bp_window_rectangular(outputSampleRate,order,600,1000);
+        f=fir_bp_window_rectangular(fs,order,600,1000);
         x4=filter(f,x);
-        f=fir_bp_window_rectangular(outputSampleRate,order,1000,3000);
+        f=fir_bp_window_rectangular(fs,order,1000,3000);
         x5=filter(f,x);
-        f=fir_bp_window_rectangular(outputSampleRate,order,3000,6000);
+        f=fir_bp_window_rectangular(fs,order,3000,6000);
         x6=filter(f,x);
-        f=fir_bp_window_rectangular(outputSampleRate,order,6000,12000);
+        f=fir_bp_window_rectangular(fs,order,6000,12000);
         x7=filter(f,x);
-        f=fir_bp_window_rectangular(outputSampleRate,order,12000,14000);
+        f=fir_bp_window_rectangular(fs,order,12000,14000);
         x8=filter(f,x);
-        f=fir_bp_window_rectangular(outputSampleRate,order,14000,16000);
+        f=fir_bp_window_rectangular(fs,order,14000,16000);
         x9=filter(f,x);
     elseif firType == 4
         %Chebyshev
-        f=fir_lp_window_chebyshev(outputSampleRate,order,170);
+        f=fir_lp_window_chebyshev(fs,order,170);
         x1=filter(f,x);
-        f=fir_bp_window_chebyshev(outputSampleRate,order,170,310);
+        f=fir_bp_window_chebyshev(fs,order,170,310);
         x2=filter(f,x);
-        f=fir_bp_window_chebyshev(outputSampleRate,order,310,600);
+        f=fir_bp_window_chebyshev(fs,order,310,600);
         x3=filter(f,x);
-        f=fir_bp_window_chebyshev(outputSampleRate,order,600,1000);
+        f=fir_bp_window_chebyshev(fs,order,600,1000);
         x4=filter(f,x);
-        f=fir_bp_window_chebyshev(outputSampleRate,order,1000,3000);
+        f=fir_bp_window_chebyshev(fs,order,1000,3000);
         x5=filter(f,x);
-        f=fir_bp_window_chebyshev(outputSampleRate,order,3000,6000);
+        f=fir_bp_window_chebyshev(fs,order,3000,6000);
         x6=filter(f,x);
-        f=fir_bp_window_chebyshev(outputSampleRate,order,6000,12000);
+        f=fir_bp_window_chebyshev(fs,order,6000,12000);
         x7=filter(f,x);
-        f=fir_bp_window_chebyshev(outputSampleRate,order,12000,14000);
+        f=fir_bp_window_chebyshev(fs,order,12000,14000);
         x8=filter(f,x);
-        f=fir_bp_window_chebyshev(outputSampleRate,order,14000,16000);
+        f=fir_bp_window_chebyshev(fs,order,14000,16000);
         x9=filter(f,x);
     elseif firType == 5
         %hamming
-        f=fir_lp_window_hamming(outputSampleRate,order,170);
+        f=fir_lp_window_hamming(fs,order,170);
         x1=filter(f,x);
-        f=fir_bp_window_hamming(outputSampleRate,order,170,310);
+        f=fir_bp_window_hamming(fs,order,170,310);
         x2=filter(f,x);
-        f=fir_bp_window_hamming(outputSampleRate,order,310,600);
+        f=fir_bp_window_hamming(fs,order,310,600);
         x3=filter(f,x);
-        f=fir_bp_window_hamming(outputSampleRate,order,600,1000);
+        f=fir_bp_window_hamming(fs,order,600,1000);
         x4=filter(f,x);
-        f=fir_bp_window_hamming(outputSampleRate,order,1000,3000);
+        f=fir_bp_window_hamming(fs,order,1000,3000);
         x5=filter(f,x);
-        f=fir_bp_window_hamming(outputSampleRate,order,3000,6000);
+        f=fir_bp_window_hamming(fs,order,3000,6000);
         x6=filter(f,x);
-        f=fir_bp_window_hamming(outputSampleRate,order,6000,12000);
+        f=fir_bp_window_hamming(fs,order,6000,12000);
         x7=filter(f,x);
-        f=fir_bp_window_hamming(outputSampleRate,order,12000,14000);
+        f=fir_bp_window_hamming(fs,order,12000,14000);
         x8=filter(f,x);
-        f=fir_bp_window_hamming(outputSampleRate,order,14000,16000);
+        f=fir_bp_window_hamming(fs,order,14000,16000);
         x9=filter(f,x);
     else
         %blackman-harris
-        f=fir_lp_window_blackman_harris(outputSampleRate,order,170);
+        f=fir_lp_window_blackman_harris(fs,order,170);
         x1=filter(f,x);
-        f=fir_bp_window_blackmax_harris(outputSampleRate,order,170,310);
+        f=fir_bp_window_blackmax_harris(fs,order,170,310);
         x2=filter(f,x);
-        f=fir_bp_window_blackmax_harris(outputSampleRate,order,310,600);
+        f=fir_bp_window_blackmax_harris(fs,order,310,600);
         x3=filter(f,x);
-        f=fir_bp_window_blackmax_harris(outputSampleRate,order,600,1000);
+        f=fir_bp_window_blackmax_harris(fs,order,600,1000);
         x4=filter(f,x);
-        f=fir_bp_window_blackmax_harris(outputSampleRate,order,1000,3000);
+        f=fir_bp_window_blackmax_harris(fs,order,1000,3000);
         x5=filter(f,x);
-        f=fir_bp_window_blackmax_harris(outputSampleRate,order,3000,6000);
+        f=fir_bp_window_blackmax_harris(fs,order,3000,6000);
         x6=filter(f,x);
-        f=fir_bp_window_blackmax_harris(outputSampleRate,order,6000,12000);
+        f=fir_bp_window_blackmax_harris(fs,order,6000,12000);
         x7=filter(f,x);
-        f=fir_bp_window_blackmax_harris(outputSampleRate,order,12000,14000);
+        f=fir_bp_window_blackmax_harris(fs,order,12000,14000);
         x8=filter(f,x);
-        f=fir_bp_window_blackmax_harris(outputSampleRate,order,14000,16000);
+        f=fir_bp_window_blackmax_harris(fs,order,14000,16000);
         x9=filter(f,x);
     end
 else
     %iir filter
-    f=iir_lp_butterworth(outputSampleRate,order,170);
+    f=iir_lp_butterworth(fs,order,170);
     x1=filter(f,x);
-    f=iir_bp_butterworth(outputSampleRate,order,170,310);
+    f=iir_bp_butterworth(fs,order,170,310);
     x2=filter(f,x);
-    f=iir_bp_butterworth(outputSampleRate,order,310,600);
+    f=iir_bp_butterworth(fs,order,310,600);
     x3=filter(f,x);
-    f=iir_bp_butterworth(outputSampleRate,order,600,1000);
+    f=iir_bp_butterworth(fs,order,600,1000);
     x4=filter(f,x);
-    f=iir_bp_butterworth(outputSampleRate,order,1000,3000);
+    f=iir_bp_butterworth(fs,order,1000,3000);
     x5=filter(f,x);
-    f=iir_bp_butterworth(outputSampleRate,order,3000,6000);
+    f=iir_bp_butterworth(fs,order,3000,6000);
     x6=filter(f,x);
-    f=iir_bp_butterworth(outputSampleRate,order,6000,12000);
+    f=iir_bp_butterworth(fs,order,6000,12000);
     x7=filter(f,x);
-    f=iir_bp_butterworth(outputSampleRate,order,12000,14000);
+    f=iir_bp_butterworth(fs,order,12000,14000);
     x8=filter(f,x);
-    f=iir_bp_butterworth(outputSampleRate,order,14000,16000);
+    f=iir_bp_butterworth(fs,order,14000,16000);
     x9=filter(f,x);
 end
 
@@ -200,8 +201,8 @@ x8s=x8*10^(slid8/20);
 x9s=x9*10^(slid9/20);
 %amplitude
 
-
 total_x = x1s+x2s+x3s+x4s+x5s+x6s+x7s+x8s+x9s;
+
 global_struct.output = total_x;
 total_y=fft(total_x);
 total_y=fftshift(total_y);
@@ -210,14 +211,14 @@ total_y_ang=angle(total_y);
 
 playControls;
 
-t = (1/outputSampleRate)*(1:length(x));
+t = (1/fs)*(1:length(x));
 axes(handles.in_time);
 plot(t,x);
 title('Input in time doman');
 xlabel('time');
 ylabel('amplitude');
 
-freq=linspace(-outputSampleRate/2,outputSampleRate/2,length(total_x));
+freq=linspace(-fs/2,fs/2,length(x));
 axes(handles.in_freq_mag);
 plot(freq,abs(fftshift(fft(x))));
 title('Input in frequence doman (Magnitude Response)');
@@ -230,6 +231,9 @@ title('Input in frequence doman (Phase Response)');
 xlabel('frequence');
 ylabel('phase');
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+t = (1/outputSampleRate)*(1:length(total_x));
 axes(handles.out_time);
 plot(t,total_x);
 title('output in time doman');
@@ -285,14 +289,14 @@ else
 end
 
 
-t = (1/outputSampleRate)*(1:length(total_x));
+t = (1/outputSampleRate)*(1:length(var));
 axes(handles.out_time);
 plot(t,var);
 title('Output in time doman');
 xlabel('time');
 ylabel('amplitude');
 
-freq=linspace(-outputSampleRate/2,outputSampleRate/2,length(total_x));
+freq=linspace(-outputSampleRate/2,outputSampleRate/2,length(var));
 axes(handles.out_freq_mag);
 plot(freq,abs(fftshift(fft(var))));
 title('Output in frequence doman (Magnitude Response)');

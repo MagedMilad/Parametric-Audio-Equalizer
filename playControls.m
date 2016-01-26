@@ -22,10 +22,10 @@ varargout{1} = handles.output;
 
 function play_Callback(hObject, eventdata, handles)
 global global_struct;
-wavplay(global_struct.output,global_struct.fs,'async');
+wavplay(global_struct.output,global_struct.outputSampleRate,'async');
 function stop_Callback(hObject, eventdata, handles)
 clear playsnd;
 function save_Callback(hObject, eventdata, handles)
 global global_struct;
 [FileName,PathName] = uiputfile('output.wav');
-wavwrite(global_struct.output,global_struct.fs,strcat(PathName,FileName));
+wavwrite(global_struct.output,global_struct.outputSampleRate,strcat(PathName,FileName));
