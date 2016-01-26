@@ -76,17 +76,15 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
 
-function otherValue_Callback(hObject, eventdata, handles)
+function otherValue_Callback(~, ~, ~)
 
 
-function otherValue_CreateFcn(hObject, eventdata, handles)
+function otherValue_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
 
-
-%our code starts here <===============================
 function open_Callback(hObject, ~, handles)
 [FileName,PathName,~] = uigetfile('input.wav');
 %handles.path = strcat(PathName,FileName);
@@ -94,36 +92,18 @@ function open_Callback(hObject, ~, handles)
 global global_struct;
 global_struct.path= strcat(PathName,FileName);
 
-function save_Callback(~, ~, handles)
-
-% --- Executes when selected object is changed in uipanel2.
-function uipanel2_SelectionChangeFcn(hObject, eventdata, handles)
-% hObject    handle to the selected object in uipanel2 
-% eventdata  structure with the following fields (see UIBUTTONGROUP)
-%   EventName: string 'SelectionChanged' (read only)
-%   OldValue: handle of the previously selected object or empty if none was selected
-%   NewValue: handle of the currently selected object
-% handles    structure with handles and user data (see GUIDATA)
+function uipanel2_SelectionChangeFcn(~, eventdata, handles)
 global global_struct;
 if handles.FIR == eventdata.NewValue
     set(handles.type,'Visible','on');
-    %handles.fir=1;
-    %guidata(hObject, handles);
     global_struct.fir= 1;
 else
     set(handles.type,'Visible','off');
-    %handles.fir=0;
-    %guidata(hObject, handles);
     global_struct.fir= 0;
-    
 end
 
 
-% --- Executes on button press in pushbutton3.
 function pushbutton3_Callback(~, ~, handles)
-% hObject    handle to pushbutton3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 global global_struct;
 
 global_struct.fir = get(handles.FIR,'Value');
@@ -158,3 +138,100 @@ global_struct.fs = fs;
 global_struct.x = x;
 global_struct.firType = get(handles.type, 'Value');
 plots
+
+
+% --- Executes on button press in allMax.
+function allMax_Callback(~, ~, handles)
+set(handles.slider11, 'Value', 30);
+set(handles.slider22, 'Value', 30);
+set(handles.slider33, 'Value', 30);
+set(handles.slider44, 'Value', 30);
+set(handles.slider55, 'Value', 30);
+set(handles.slider66, 'Value', 30);
+set(handles.slider77, 'Value', 30);
+set(handles.slider88, 'Value', 30);
+set(handles.slider99, 'Value', 30);
+
+
+function allMin_Callback(~, ~, handles)
+set(handles.slider11, 'Value', -30);
+set(handles.slider22, 'Value', -30);
+set(handles.slider33, 'Value', -30);
+set(handles.slider44, 'Value', -30);
+set(handles.slider55, 'Value', -30);
+set(handles.slider66, 'Value', -30);
+set(handles.slider77, 'Value', -30);
+set(handles.slider88, 'Value', -30);
+set(handles.slider99, 'Value', -30);
+
+function allZeros_Callback(~, ~, handles)
+set(handles.slider11, 'Value', 0);
+set(handles.slider22, 'Value', 0);
+set(handles.slider33, 'Value', 0);
+set(handles.slider44, 'Value', 0);
+set(handles.slider55, 'Value', 0);
+set(handles.slider66, 'Value', 0);
+set(handles.slider77, 'Value', 0);
+set(handles.slider88, 'Value', 0);
+set(handles.slider99, 'Value', 0);
+
+
+function bassBoost_Callback(~, ~, handles)
+set(handles.slider11, 'Value', 30);
+set(handles.slider22, 'Value', 25);
+set(handles.slider33, 'Value', 20);
+set(handles.slider44, 'Value', 15);
+set(handles.slider55, 'Value', 10);
+set(handles.slider66, 'Value', 5);
+set(handles.slider77, 'Value', 0);
+set(handles.slider88, 'Value', 0);
+set(handles.slider99, 'Value', 0);
+
+
+function bassReduce_Callback(~, ~, handles)
+set(handles.slider11, 'Value', -30);
+set(handles.slider22, 'Value', -25);
+set(handles.slider33, 'Value', -20);
+set(handles.slider44, 'Value', -15);
+set(handles.slider55, 'Value', -10);
+set(handles.slider66, 'Value', -5);
+set(handles.slider77, 'Value', 0);
+set(handles.slider88, 'Value', 0);
+set(handles.slider99, 'Value', 0);
+
+
+
+function pop_Callback(~, ~, handles)
+set(handles.slider11, 'Value', 0);
+set(handles.slider22, 'Value', 0);
+set(handles.slider33, 'Value', 3);
+set(handles.slider44, 'Value', 5);
+set(handles.slider55, 'Value', 10);
+set(handles.slider66, 'Value', 5);
+set(handles.slider77, 'Value', 3);
+set(handles.slider88, 'Value', 0);
+set(handles.slider99, 'Value', 0);
+
+
+function rock_Callback(~, ~, handles)
+set(handles.slider11, 'Value', 10);
+set(handles.slider22, 'Value', 7);
+set(handles.slider33, 'Value', 5);
+set(handles.slider44, 'Value', 3);
+set(handles.slider55, 'Value', 0);
+set(handles.slider66, 'Value', 3);
+set(handles.slider77, 'Value', 5);
+set(handles.slider88, 'Value', 7);
+set(handles.slider99, 'Value', 10);
+
+
+function metal_Callback(~, ~, handles)
+set(handles.slider11, 'Value', 20);
+set(handles.slider22, 'Value', 15);
+set(handles.slider33, 'Value', 0);
+set(handles.slider44, 'Value', 10);
+set(handles.slider55, 'Value', 0);
+set(handles.slider66, 'Value', 10);
+set(handles.slider77, 'Value', 0);
+set(handles.slider88, 'Value', 15);
+set(handles.slider99, 'Value', 20);

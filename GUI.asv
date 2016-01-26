@@ -76,17 +76,15 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
 
-function otherValue_Callback(hObject, eventdata, handles)
+function otherValue_Callback(~, ~, ~)
 
 
-function otherValue_CreateFcn(hObject, eventdata, handles)
+function otherValue_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
 
-
-%our code starts here <===============================
 function open_Callback(hObject, ~, handles)
 [FileName,PathName,~] = uigetfile('input.wav');
 %handles.path = strcat(PathName,FileName);
@@ -94,36 +92,18 @@ function open_Callback(hObject, ~, handles)
 global global_struct;
 global_struct.path= strcat(PathName,FileName);
 
-function save_Callback(~, ~, handles)
-
-% --- Executes when selected object is changed in uipanel2.
-function uipanel2_SelectionChangeFcn(hObject, eventdata, handles)
-% hObject    handle to the selected object in uipanel2 
-% eventdata  structure with the following fields (see UIBUTTONGROUP)
-%   EventName: string 'SelectionChanged' (read only)
-%   OldValue: handle of the previously selected object or empty if none was selected
-%   NewValue: handle of the currently selected object
-% handles    structure with handles and user data (see GUIDATA)
+function uipanel2_SelectionChangeFcn(~, eventdata, handles)
 global global_struct;
 if handles.FIR == eventdata.NewValue
     set(handles.type,'Visible','on');
-    %handles.fir=1;
-    %guidata(hObject, handles);
     global_struct.fir= 1;
 else
     set(handles.type,'Visible','off');
-    %handles.fir=0;
-    %guidata(hObject, handles);
     global_struct.fir= 0;
-    
 end
 
 
-% --- Executes on button press in pushbutton3.
 function pushbutton3_Callback(~, ~, handles)
-% hObject    handle to pushbutton3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 global global_struct;
 
 global_struct.fir = get(handles.FIR,'Value');
@@ -153,12 +133,9 @@ else
     outputSampleRate=str2num(get(handles.otherValue, 'String'));
 end
 
-if outputSampleRate <= 32000
-    errordlg('error in sample rate','Error');
-else
-global_struct.fs = outputSampleRate;
-global_struct.org_fs = fs;
+global_struct.outputSampleRate = outputSampleRate;
+global_struct.fs = fs;
 global_struct.x = x;
 global_struct.firType = get(handles.type, 'Value');
 plots
-end
+
